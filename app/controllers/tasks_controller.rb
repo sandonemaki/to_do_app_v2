@@ -1,16 +1,16 @@
 class TasksController < ApplicationController
-  before_aciton :task_id_nil?, only: [:edit, :update, :destroy]
+  before_action :task_id_nil?, only: [:edit, :update, :destroy]
 
   # ActiveRecordを継承したインスタンスオブジェクトをview側で使用しない。
   def index
     # Array
-    tasks = Task.where(done_flag: 0).order(created_at: :desk).pluck(:id, :image_status, :content, :created_at)
+    tasks = Task.where(done_flag: 0).order(created_at: :desc).pluck(:id, :image_status, :content, :created_at)
     tasks_view_model = PresenterIndex.new(tasks_ary: tasks)
-    render("index", locals: {tasks: tasks_view_models})
+    render("index", locals: {tasks: tasks_view_model})
   end
 
   def fin_index
-    tasks = Task.where(done_flag: 0).order(created_at: :desk).pluck(:id, :image_status, :content, :created_at)
+    tasks = Task.where(done_flag: 1).order(created_at: :desc).pluck(:id, :image_status, :content, :created_at)
     tasks_view_model = PresenterIndex.new(tasks_ary: tasks)
     render("fin_index", locals: {tasks: tasks_view_model})
   end
@@ -47,6 +47,7 @@ class TasksController < ApplicationController
     task_content = task.content #String or nil
     task_errors = task.errors #Hash #ActiveModel::Errors
     task_view_model = PresenterEdit.new(content: task_content, errors: task_errors, id: task_id) #PresentreEdit
+    render("edit", locals: {task: task_view_model})
   end
 
   def update
@@ -88,7 +89,7 @@ class TasksController < ApplicationController
   end
 
   def undone
-    task = Task.find_by(id: params[id])
+    task = Task.find_by(id: params[:id])
     task.done_flag = 0
     task.image_status = "undone.png"
     if task.save!

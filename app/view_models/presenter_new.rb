@@ -1,8 +1,9 @@
-class PrsenterNew
+class PresenterNew
   attr_reader :content, :errors
 
   def initialize(content:, errors: {})
     @content = content #String or nil
-    @errors = errorsi #Hash
+    @errors = errors #Hash
+  end
 end
 

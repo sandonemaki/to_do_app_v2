@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :tasks do
     put :done, on: :member
-    put :undone, on: :memer
+    put :undone, on: :member
     get :fin_index, on: :collection
   end
 

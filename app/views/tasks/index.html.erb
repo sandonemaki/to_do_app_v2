@@ -2,7 +2,7 @@
 <main class="ly_main">
   <div class="ly_card_article">
     <div class="bl_maintitle">
-      <h1 class="el_lv1headding">
+      <h1 class="el_lv1hedding">
         やること一覧
       </h1>
     </div><!--bl_maintitle-->
@@ -12,7 +12,7 @@
 
     <% hash = {} %>
     <% tasks.tasks_ary.each do |task_ary| %>
-      <% hash = {:id => task_ary[0], :image_status => task_ary[1], :content => task_ary[2]} %>
+      <% hash = {:id => task_ary[0], :image_status => task_ary[1], :content => task_ary[2], :created_at => task_ary[3]} %>
       <div class="bl_card">
         <div class="bl_card_content">
           <div class=el_card_icon>
@@ -29,10 +29,10 @@
           </div><!-- /bl_card_date -->
           <ul class="bl_card_nav">
             <li>
-              <%= link_to("がんばった", "/tasks/#{hash[:id]}/done", {class: "el_card_navitem", method: :put} %>
+              <%= link_to("がんばった", "/tasks/#{hash[:id]}/done", {class: "el_card_navitem", method: :put}) %>
             </li>
             <li>
-              <%= link_to("編集", "/tasks/#{hash[:id]}/editi", class: "el_card_navitem") %>
+              <%= link_to("編集", "/tasks/#{hash[:id]}/edit", class: "el_card_navitem") %>
             </li>
             <li>
               <%= link_to("削除", "/tasks/#{hash[:id]}/destroy", {class: "el_card_navitem", method: :post}) %>
