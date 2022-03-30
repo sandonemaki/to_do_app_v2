@@ -1,0 +1,11 @@
+name: v2actions
+
+on: [push]
+
+jobs:
+  build:
+    name: Sample
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        run: echo "Hello World"
